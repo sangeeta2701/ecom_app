@@ -34,11 +34,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   children: [
                     Text(
                       "Shoes",
-                      style: appStyleWithHt(42, wColor, FontWeight.bold, 1.0),
+                      style: appStyleWithHt(42, wColor, FontWeight.bold, 1.2),
                     ),
                     Text(
                       "Collection",
-                      style: appStyleWithHt(42, wColor, FontWeight.bold, 1.0),
+                      style: appStyleWithHt(42, wColor, FontWeight.bold, 1.2),
                     ),
                     TabBar(
                       indicatorSize: TabBarIndicatorSize.label,
@@ -128,8 +128,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: gColor,
-                                    borderRadius: BorderRadius.circular(6)
+                                    color: wColor,
+                                    borderRadius: BorderRadius.circular(6),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: bColor.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 0.8,
+                                        offset: Offset(0, 1)
+                                      )
+                                    ]
                                   ),
                                   
                                   height: MediaQuery.of(context).size.height*0.12,
