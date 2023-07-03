@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/constants.dart';
+import 'package:ecom_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,162 +17,176 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: bgColor,
         body: SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(16, 35, 0, 0),
-            height: MediaQuery.of(context).size.height * 0.4,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/top_image.png"),
-                    fit: BoxFit.fill)),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Shoes",
-                      style: appStyleWithHt(42, wColor, FontWeight.bold, 1.2),
-                    ),
-                    Text(
-                      "Collection",
-                      style: appStyleWithHt(42, wColor, FontWeight.bold, 1.2),
-                    ),
-                    TabBar(
-                      indicatorSize: TabBarIndicatorSize.label,
-                      indicatorColor: Colors.transparent,
-                      controller: _tabController,
-                      isScrollable: true,
-                      labelStyle: appStyle(24, wColor, FontWeight.bold),
-                      unselectedLabelColor: gColor.withOpacity(0.3),
-                      tabs: [
-                        Tab(
-                          text: "Mens Shoes",
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(16, 35, 0, 0),
+                height: MediaQuery.of(context).size.height * 0.4,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/top_image.png"),
+                        fit: BoxFit.fill)),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Shoes",
+                          style:
+                              appStyleWithHt(42, wColor, FontWeight.bold, 1.2),
                         ),
-                        Tab(
-                          text: "Womens Shoes",
+                        Text(
+                          "Collection",
+                          style:
+                              appStyleWithHt(42, wColor, FontWeight.bold, 1.2),
                         ),
-                        Tab(
-                          text: "kids Shoes",
+                        TabBar(
+                          padding: EdgeInsets.zero,
+                          indicatorSize: TabBarIndicatorSize.label,
+                          indicatorColor: Colors.transparent,
+                          controller: _tabController,
+                          isScrollable: true,
+                          labelStyle: appStyle(24, wColor, FontWeight.bold),
+                          unselectedLabelColor: gColor.withOpacity(0.3),
+                          tabs: [
+                            Tab(
+                              text: "Mens Shoes",
+                            ),
+                            Tab(
+                              text: "Womens Shoes",
+                            ),
+                            Tab(
+                              text: "kids Shoes",
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ]),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.265),
-            child: Container(
-              padding: EdgeInsets.only(left: 12),
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  Column(
+                      ]),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.265),
+                child: Container(
+                  padding: EdgeInsets.only(left: 12),
+                  child: TabBarView(
+                    controller: _tabController,
                     children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        child: ListView.builder(
-                            itemCount: 6,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  color: gColor,
-                                  height: MediaQuery.of(context).size.height,
-                                  width: MediaQuery.of(context).size.width*0.6,
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.405,
+                            child: ListView.builder(
+                                itemCount: 6,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return ProductCard(
+                                      price: "\$20.00",
+                                      category: "Men Shoes",
+                                      id: "1",
+                                      image:
+                                          "https://d326fntlu7tb1e.cloudfront.net/uploads/710d020f-2da8-4e9e-8cff-0c8f24581488-GV6674.webp",
+                                      name: "AdidasNMD");
+                                  // return Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Container(
+                                  //     color: gColor,
+                                  //     height: MediaQuery.of(context).size.height,
+                                  //     width: MediaQuery.of(context).size.width*0.6,
+                                  //   ),
+                                  // );
+                                }),
+                          ),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(12, 20, 12, 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Latest Shoes",
+                                      style:
+                                          appStyle(24, bColor, FontWeight.bold),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Show All",
+                                          style: appStyle(
+                                              22, bColor, FontWeight.w600),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 20,
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
-                              );
-                              
-                            }),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.13,
+                            child: ListView.builder(
+                                itemCount: 6,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: wColor,
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: wColor.withOpacity(0.2),
+                                                spreadRadius: 1,
+                                                blurRadius: 0.8,
+                                                offset: Offset(0, 1))
+                                          ]),
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.12,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.28,
+                                      child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://d326fntlu7tb1e.cloudfront.net/uploads/58282ea3-b815-4d26-9f4f-382aa62f67cf-HP5404_a1.webp"),
+                                    ),
+                                  );
+                                }),
+                          )
+                        ],
                       ),
                       Column(
                         children: [
-                          Padding(
-                            padding:  EdgeInsets.fromLTRB(12, 20, 12, 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Latest Shoes",
-                                  style: appStyle(24, bColor, FontWeight.bold),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Show All",
-                                      style:
-                                          appStyle(22, bColor, FontWeight.w600),
-                                    ),
-                                    Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 20,
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.405,
+                            color: amberColor,
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.13,
-                        child: ListView.builder(
-                            itemCount: 6,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: wColor,
-                                    borderRadius: BorderRadius.circular(6),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: bColor.withOpacity(0.4),
-                                        spreadRadius: 1,
-                                        blurRadius: 0.8,
-                                        offset: Offset(0, 1)
-                                      )
-                                    ]
-                                  ),
-                                  
-                                  height: MediaQuery.of(context).size.height*0.12,
-                                  width: MediaQuery.of(context).size.width*0.28,
-                                  child: CachedNetworkImage(imageUrl: "https://d326fntlu7tb1e.cloudfront.net/uploads/58282ea3-b815-4d26-9f4f-382aa62f67cf-HP5404_a1.webp"),
-                                ),
-                              );
-                              
-                            }),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        color: amberColor,
+                      Column(
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.405,
+                            color: amberColor,
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        color: amberColor,
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }
