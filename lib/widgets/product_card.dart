@@ -58,7 +58,7 @@ class _ProductCardState extends State<ProductCard> {
                   children: [
                     Text(
                       widget.name,
-                      style: appStyleWithHt(36, bColor, FontWeight.bold, 1.2),
+                      style: appStyleWithHt(30, bColor, FontWeight.bold, 1.2),
                     ),
                     Text(
                       widget.category,
@@ -71,7 +71,7 @@ class _ProductCardState extends State<ProductCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.price,style: appStyle(30, bColor, FontWeight.w600),),
+                  Text(widget.price,style: appStyle(26, bColor, FontWeight.w600),),
                   Row(children: [
                     Text("Colors",style: appStyle(18, gColor, FontWeight.w500),),
                     SizedBox(width: 5,),
