@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecom_app/models/snekers.dart';
+import 'package:ecom_app/services/hrlper.dart';
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/constants.dart';
 import 'package:ecom_app/widgets/product_card.dart';
@@ -14,6 +16,30 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController =
       TabController(length: 3, vsync: this);
+  late Future<List<Snekers>> _male;
+  late Future<List<Snekers>> _female;
+  late Future<List<Snekers>> _kids;
+
+  void getMale() {
+    _male = Helper().getMaleSneker();
+  }
+
+  void getFemale() {
+    _female = Helper().getFemaleSneker();
+  }
+
+  void getKids() {
+    _kids = Helper().getKidsSneker();
+  }
+
+  @override
+  void initState() {
+    getMale();
+    getFemale();
+    getKids();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.265),
+                    top: MediaQuery.of(context).size.height * 0.250),
                 child: Container(
                   padding: EdgeInsets.only(left: 12),
                   child: TabBarView(
@@ -78,27 +104,33 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       Column(
                         children: [
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.405,
-                            child: ListView.builder(
-                                itemCount: 6,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return ProductCard(
-                                      price: "\$20.00",
-                                      category: "Men Shoes",
-                                      id: "1",
-                                      image:
-                                          "https://d326fntlu7tb1e.cloudfront.net/uploads/710d020f-2da8-4e9e-8cff-0c8f24581488-GV6674.webp",
-                                      name: "AdidasNMD");
-                                  // return Padding(
-                                  //   padding: const EdgeInsets.all(8.0),
-                                  //   child: Container(
-                                  //     color: gColor,
-                                  //     height: MediaQuery.of(context).size.height,
-                                  //     width: MediaQuery.of(context).size.width*0.6,
-                                  //   ),
-                                  // );
+                            height: MediaQuery.of(context).size.height * 0.415,
+                            child: FutureBuilder<List<Snekers>>(
+                                future: _male,
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text("Error ${snapshot.error}");
+                                  } else {
+                                    final male = snapshot.data;
+                                    return ListView.builder(
+                                        itemCount: male!.length,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          final shoe = snapshot.data![index];
+                                          return ProductCard(
+                                              price: "\$${shoe.price}",
+                                              category: shoe.category,
+                                              id: shoe.id,
+                                              image:
+                                                  shoe.imageUrl[0],
+                                              name: shoe.title);
+                                        });
+                                  }
                                 }),
+                            
                           ),
                           Column(
                             children: [
