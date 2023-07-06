@@ -171,27 +171,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: wColor,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: wColor.withOpacity(0.2),
-                                                spreadRadius: 1,
-                                                blurRadius: 0.8,
-                                                offset: Offset(0, 1))
-                                          ]),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.12,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.28,
-                                      child: CachedNetworkImage(
-                                          imageUrl:
-                                              "https://d326fntlu7tb1e.cloudfront.net/uploads/58282ea3-b815-4d26-9f4f-382aa62f67cf-HP5404_a1.webp"),
-                                    ),
+                                    child: NewShoes(),
                                   );
                                 }),
                           )
@@ -222,3 +202,4 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ));
   }
 }
+
