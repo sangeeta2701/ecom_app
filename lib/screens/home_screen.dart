@@ -2,9 +2,8 @@ import 'package:ecom_app/models/snekers.dart';
 import 'package:ecom_app/services/hrlper.dart';
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/constants.dart';
-import 'package:ecom_app/widgets/new_shoes.dart';
-import 'package:ecom_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import '../widgets/homeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -102,24 +101,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     controller: _tabController,
                     children: [
                       HomeWidget(male: _male),
+                      HomeWidget(male: _female),
+                      HomeWidget(male: _kids),
                       
                       
-                      Column(
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.405,
-                            color: amberColor,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.405,
-                            color: amberColor,
-                          ),
-                        ],
-                      ),
+                      
                     ],
                   ),
                 ),
