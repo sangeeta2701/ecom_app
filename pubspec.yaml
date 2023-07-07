@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^5.1.0
   provider: ^6.0.5
   cached_network_image: ^3.2.3
+  font_awesome_flutter: ^10.5.0
   # http: ^0.13.0
   # flutter_cache_manager: ^3.0.0
 

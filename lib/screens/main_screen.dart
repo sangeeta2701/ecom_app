@@ -1,6 +1,7 @@
 import 'package:ecom_app/controllers/mainscreen_provider.dart';
 import 'package:ecom_app/screens/cart_screen.dart';
 import 'package:ecom_app/screens/home_screen.dart';
+import 'package:ecom_app/screens/product_by_cart.dart';
 import 'package:ecom_app/screens/profile_screen.dart';
 import 'package:ecom_app/screens/search_screen.dart';
 import 'package:ecom_app/utils/color.dart';
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> pageList = const [
     HomeScreen(),
     SearchScreen(),
-    HomeScreen(),
+    ProductByCart(),
     CartScreen(),
     ProfileScreen(),
   ];
