@@ -1,4 +1,5 @@
 import 'package:ecom_app/utils/color.dart';
+import 'package:ecom_app/utils/sizdBox.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -48,7 +49,8 @@ class _ProductByCartState extends State<ProductByCart>
       backgroundColor: bgColor,
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: Stack(children: [
+        child: Stack(
+          children: [
           Container(
             padding: EdgeInsets.fromLTRB(16, 35, 0, 0),
             height: MediaQuery.of(context).size.height * 0.4,
@@ -57,23 +59,30 @@ class _ProductByCartState extends State<ProductByCart>
                     image: AssetImage("assets/images/top_image.png"),
                     fit: BoxFit.fill)),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, 
+                children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(6, 12, 16, 18),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.close,
-                        color: wColor,
+                    SizedBox(
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: wColor,
+                        ),
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        filter();
+                      },
                       child: Icon(
                         FontAwesomeIcons.sliders,
                         color: wColor,
@@ -125,5 +134,51 @@ class _ProductByCartState extends State<ProductByCart>
       ),
     );
   }
-}
 
+  Future<dynamic> filter() {
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        barrierColor: Colors.white54,
+        builder: (context) {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.82,
+            decoration: BoxDecoration(
+                color: wColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25))),
+            child: Column(children: [
+              height12,
+              Container(
+                height: 5,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: bColor.withOpacity(0.3),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Column(
+                  children: [
+                    height24,
+                    Text(
+                      "Filter",
+                      style: appStyle(40, bColor, FontWeight.bold),
+                    ),
+                    height24,
+                    Text(
+                      "Gender",
+                      style: appStyle(20, bColor, FontWeight.bold),
+                    ),
+                    height20,
+                  ],
+                ),
+              )
+            ]),
+          );
+        });
+  }
+}
