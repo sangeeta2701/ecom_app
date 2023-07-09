@@ -34,7 +34,7 @@ class _StaggerTileState extends State<StaggerTile> {
             ),
             SizedBox(
               // padding: EdgeInsets.only(top: 8),
-              height: 60,
+              height: 50,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

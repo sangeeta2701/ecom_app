@@ -1,14 +1,11 @@
 import 'package:ecom_app/utils/color.dart';
-import 'package:ecom_app/widgets/stagger_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
 import '../models/snekers.dart';
 import '../services/hrlper.dart';
 import '../utils/constants.dart';
-import '../widgets/product_card.dart';
+import '../widgets/latestShoes.dart';
 
 class ProductByCart extends StatefulWidget {
   const ProductByCart({super.key});
@@ -117,48 +114,9 @@ class _ProductByCartState extends State<ProductByCart>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  FutureBuilder<List<Snekers>>(
-                      future: _male,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return CircularProgressIndicator();
-                        } else if (snapshot.hasError) {
-                          return Text("Error ${snapshot.error}");
-                        } else {
-                          final male = snapshot.data;
-                          return StaggeredGridView.countBuilder(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 16,
-                              scrollDirection: Axis.vertical,
-                              staggeredTileBuilder: (index) =>
-                                  StaggeredTile.extent(
-                                      (index % 2 == 0) ? 1 : 1,
-                                      (index % 4 == 1 || index % 4 == 3)
-                                          ? MediaQuery.of(context).size.height *
-                                              0.35
-                                          : MediaQuery.of(context).size.height *
-                                              0.3),
-                              itemCount: male!.length,
-                              itemBuilder: (context, index) {
-                                final shoe = snapshot.data![index];
-                                return StaggerTile(
-                                    imageUrl: shoe.imageUrl[1],
-                                    name: shoe.name,
-                                    price: "\$${shoe.price}");
-                              });
-                        }
-                      }),
-                  Container(
-                    height: 500,
-                    width: 300,
-                    color: Colors.amber,
-                  ),
-                  Container(
-                    height: 500,
-                    width: 300,
-                    color: Colors.amber,
-                  ),
+                  LatestShoes(male: _male),
+                  LatestShoes(male: _female),
+                  LatestShoes(male: _kids)
                 ],
               ),
             ),
@@ -168,3 +126,4 @@ class _ProductByCartState extends State<ProductByCart>
     );
   }
 }
+
