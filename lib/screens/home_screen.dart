@@ -3,6 +3,8 @@ import 'package:ecom_app/services/hrlper.dart';
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../utils/sizdBox.dart';
 import '../widgets/homeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -60,15 +62,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Shoes",
+                          "Shoes\nCollection",
                           style:
                               appStyleWithHt(42, wColor, FontWeight.bold, 1.2),
                         ),
-                        Text(
-                          "Collection",
-                          style:
-                              appStyleWithHt(42, wColor, FontWeight.bold, 1.2),
-                        ),
+                        
                         TabBar(
                           padding: EdgeInsets.zero,
                           indicatorSize: TabBarIndicatorSize.label,
@@ -113,6 +111,52 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ],
           ),
         ));
+  }
+  Future<dynamic> filter() {
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        barrierColor: Colors.white54,
+        builder: (context) {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.82,
+            decoration: BoxDecoration(
+                color: wColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25))),
+            child: Column(children: [
+              height12,
+              Container(
+                height: 5,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: bColor.withOpacity(0.3),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Column(
+                  children: [
+                    height24,
+                    Text(
+                      "Filter",
+                      style: appStyle(40, bColor, FontWeight.bold),
+                    ),
+                    height24,
+                    Text(
+                      "Gender",
+                      style: appStyle(20, bColor, FontWeight.bold),
+                    ),
+                    height20,
+                  ],
+                ),
+              )
+            ]),
+          );
+        });
   }
 }
 

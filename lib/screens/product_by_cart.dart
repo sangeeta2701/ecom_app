@@ -51,68 +51,69 @@ class _ProductByCartState extends State<ProductByCart>
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(16, 35, 0, 0),
-            height: MediaQuery.of(context).size.height * 0.4,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/top_image.png"),
-                    fit: BoxFit.fill)),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, 
-                children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(6, 12, 16, 18),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.close,
-                          color: wColor,
+            Container(
+                padding: EdgeInsets.fromLTRB(16, 35, 0, 0),
+                height: MediaQuery.of(context).size.height * 0.4,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/top_image.png"),
+                        fit: BoxFit.fill)),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                            GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.close,
+                            color: wColor,
+                          ),
+                                              ),
+                                              GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            filter();
+                          },
+                          child: Icon(
+                            FontAwesomeIcons.sliders,
+                            color: wColor,
+                          ),
+                                              ),
+                          ],),
                         ),
-                      ),
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        filter();
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.sliders,
-                        color: wColor,
-                      ),
-                    ),
-                  ],
+                        
+                        TabBar(
+                          padding: EdgeInsets.zero,
+                          indicatorSize: TabBarIndicatorSize.label,
+                          indicatorColor: Colors.transparent,
+                          controller: _tabController,
+                          isScrollable: true,
+                          labelStyle: appStyle(24, wColor, FontWeight.bold),
+                          unselectedLabelColor: gColor.withOpacity(0.3),
+                          tabs: [
+                            Tab(
+                              text: "Mens Shoes",
+                            ),
+                            Tab(
+                              text: "Womens Shoes",
+                            ),
+                            Tab(
+                              text: "kids Shoes",
+                            ),
+                          ],
+                        ),
+                      ]),
                 ),
               ),
-            ]),
-          ),
-          TabBar(
-            padding: EdgeInsets.only(top: 100),
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: Colors.transparent,
-            controller: _tabController,
-            isScrollable: true,
-            labelStyle: appStyle(24, wColor, FontWeight.bold),
-            unselectedLabelColor: gColor.withOpacity(0.3),
-            tabs: [
-              Tab(
-                text: "Mens Shoes",
-              ),
-              Tab(
-                text: "Womens Shoes",
-              ),
-              Tab(
-                text: "kids Shoes",
-              ),
-            ],
-          ),
           Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.175,
