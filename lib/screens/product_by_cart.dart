@@ -1,5 +1,6 @@
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/sizdBox.dart';
+import 'package:ecom_app/widgets/categortButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,77 +44,82 @@ class _ProductByCartState extends State<ProductByCart>
     super.initState();
   }
 
+  List<String> brand = [
+    "assets/images/adidas.png",
+    "assets/images/gucci.png",
+    "assets/images/jordan.png",
+    "assets/images/nike.png",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: Stack(
-          children: [
-            Container(
-                padding: EdgeInsets.fromLTRB(16, 35, 0, 0),
-                height: MediaQuery.of(context).size.height * 0.4,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/top_image.png"),
-                        fit: BoxFit.fill)),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                            GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.close,
-                            color: wColor,
+        child: Stack(children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(16, 35, 0, 0),
+            height: MediaQuery.of(context).size.height * 0.4,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/top_image.png"),
+                    fit: BoxFit.fill)),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: wColor,
+                            ),
                           ),
-                                              ),
-                                              GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            filter();
-                          },
-                          child: Icon(
-                            FontAwesomeIcons.sliders,
-                            color: wColor,
+                          GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {
+                              filter();
+                            },
+                            child: Icon(
+                              FontAwesomeIcons.sliders,
+                              color: wColor,
+                            ),
                           ),
-                                              ),
-                          ],),
+                        ],
+                      ),
+                    ),
+                    TabBar(
+                      padding: EdgeInsets.zero,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorColor: Colors.transparent,
+                      controller: _tabController,
+                      isScrollable: true,
+                      labelStyle: appStyle(24, wColor, FontWeight.bold),
+                      unselectedLabelColor: gColor.withOpacity(0.3),
+                      tabs: [
+                        Tab(
+                          text: "Mens Shoes",
                         ),
-                        
-                        TabBar(
-                          padding: EdgeInsets.zero,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          indicatorColor: Colors.transparent,
-                          controller: _tabController,
-                          isScrollable: true,
-                          labelStyle: appStyle(24, wColor, FontWeight.bold),
-                          unselectedLabelColor: gColor.withOpacity(0.3),
-                          tabs: [
-                            Tab(
-                              text: "Mens Shoes",
-                            ),
-                            Tab(
-                              text: "Womens Shoes",
-                            ),
-                            Tab(
-                              text: "kids Shoes",
-                            ),
-                          ],
+                        Tab(
+                          text: "Womens Shoes",
                         ),
-                      ]),
-                ),
-              ),
+                        Tab(
+                          text: "kids Shoes",
+                        ),
+                      ],
+                    ),
+                  ]),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.175,
@@ -137,6 +143,7 @@ class _ProductByCartState extends State<ProductByCart>
   }
 
   Future<dynamic> filter() {
+    double _value = 100;
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -144,7 +151,7 @@ class _ProductByCartState extends State<ProductByCart>
         barrierColor: Colors.white54,
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height * 0.82,
+            height: MediaQuery.of(context).size.height * 0.84,
             decoration: BoxDecoration(
                 color: wColor,
                 borderRadius: BorderRadius.only(
@@ -164,18 +171,83 @@ class _ProductByCartState extends State<ProductByCart>
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: Column(
                   children: [
-                    height24,
+                    height16,
                     Text(
                       "Filter",
                       style: appStyle(40, bColor, FontWeight.bold),
                     ),
-                    height24,
+                    height16,
                     Text(
                       "Gender",
                       style: appStyle(20, bColor, FontWeight.bold),
                     ),
-                    height20,
-                    Row(children: [],),
+                    height12,
+                    Row(
+                      children: [
+                        CategoryButton(buttonClr: bColor, lable: "Men"),
+                        CategoryButton(buttonClr: gColor, lable: "Women"),
+                        CategoryButton(buttonClr: gColor, lable: "Kids"),
+                      ],
+                    ),
+                    height16,
+                    Text(
+                      "Category",
+                      style: appStyle(20, bColor, FontWeight.bold),
+                    ),
+                    height12,
+                    Row(
+                      children: [
+                        CategoryButton(buttonClr: bColor, lable: "Shoes"),
+                        CategoryButton(buttonClr: gColor, lable: "Apparrels"),
+                        CategoryButton(buttonClr: gColor, lable: "Accessories"),
+                      ],
+                    ),
+                    height16,
+                    Text(
+                      "Price",
+                      style: appStyle(20, bColor, FontWeight.bold),
+                    ),
+                    height12,
+                    Slider(
+                        value: _value,
+                        activeColor: bColor,
+                        inactiveColor: gColor,
+                        thumbColor: bColor,
+                        max: 500,
+                        divisions: 50,
+                        label: _value.toString(),
+                        secondaryTrackValue: 200,
+                        onChanged: (double value) {}),
+                    height16,
+                    Text(
+                      "Brand",
+                      style: appStyle(20, bColor, FontWeight.bold),
+                    ),
+                    height12,
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      height: 80,
+                      child: ListView.builder(
+                          itemCount: brand.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: gColor.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Image.asset(
+                                  brand[index],
+                                  height: 60,
+                                  width: 80,
+                                  color: bColor,
+                                ),
+                              ),
+                            );
+                          }),
+                    )
                   ],
                 ),
               )

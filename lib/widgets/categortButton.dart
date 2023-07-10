@@ -13,6 +13,7 @@ class CategoryButton extends StatelessWidget {
     return MaterialButton(
       onPressed: onpress,
       child: Container(
+        height: 45,
         width: MediaQuery.of(context).size.width*0.255,
         decoration: BoxDecoration(
           border: Border.all(
@@ -22,7 +23,7 @@ class CategoryButton extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(9),
         ),
-        child: Text(lable,style: appStyle(20, buttonClr, FontWeight.w600),),
+        child: Center(child: Text(lable,style: appStyle(18, buttonClr, FontWeight.w600),)),
       ),
     );
   }
