@@ -175,6 +175,7 @@ class _ProductByCartState extends State<ProductByCart>
                       style: appStyle(20, bColor, FontWeight.bold),
                     ),
                     height20,
+                    Row(children: [],),
                   ],
                 ),
               )
