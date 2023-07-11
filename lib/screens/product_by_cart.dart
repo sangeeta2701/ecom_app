@@ -10,7 +10,8 @@ import '../utils/constants.dart';
 import '../widgets/latestShoes.dart';
 
 class ProductByCart extends StatefulWidget {
-  const ProductByCart({super.key});
+  const ProductByCart({super.key,required this.tabIndex});
+  final int tabIndex;
 
   @override
   State<ProductByCart> createState() => _ProductByCartState();

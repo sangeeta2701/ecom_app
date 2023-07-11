@@ -3,7 +3,6 @@ import 'package:ecom_app/services/hrlper.dart';
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils/sizdBox.dart';
 import '../widgets/homeWidget.dart';
 
@@ -92,15 +91,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.250),
+                    top: MediaQuery.of(context).size.height * 0.25),
                 child: Container(
                   padding: EdgeInsets.only(left: 12),
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      HomeWidget(male: _male),
-                      HomeWidget(male: _female),
-                      HomeWidget(male: _kids),
+                      HomeWidget(male: _male,tabIndex: 0,),
+                      HomeWidget(male: _female,tabIndex: 1,),
+                      HomeWidget(male: _kids,tabIndex: 2,),
                       
                       
                       
