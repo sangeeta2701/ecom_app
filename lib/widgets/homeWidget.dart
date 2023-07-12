@@ -2,7 +2,9 @@ import 'package:ecom_app/screens/product_by_cart.dart';
 import 'package:ecom_app/screens/product_detail_screen.dart';
 import 'package:ecom_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../controllers/product_provider.dart';
 import '../models/snekers.dart';
 import '../utils/color.dart';
 import '../utils/constants.dart';
@@ -20,6 +22,7 @@ class HomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var productNotifier = Provider.of<ProductNotifier>(context);
     return Column(
       children: [
         SizedBox(
@@ -40,7 +43,13 @@ class HomeWidget extends StatelessWidget {
                         final shoe = snapshot.data![index];
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetailScreen(id: shoe.id, category: shoe.category)));
+                            productNotifier.shoesSize = shoe.sizes;
+                            print(productNotifier.shoesSize);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProductDetailScreen(
+                                        id: shoe.id, category: shoe.category)));
                           },
                           child: ProductCard(
                               price: "\$${shoe.price}",

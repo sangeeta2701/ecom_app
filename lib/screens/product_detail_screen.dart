@@ -70,6 +70,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               GestureDetector(
                                   onTap: () {
                                     Navigator.pop(context);
+                                    productNotifier.shoesSize.clear();
                                   },
                                   child: Icon(
                                     Icons.close,
@@ -204,45 +205,113 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                 direction: Axis.horizontal,
                                                 allowHalfRating: true,
                                                 itemBuilder: (context, _) {
-                                                  return Icon(Icons.star,size: 18,color: bColor,);
+                                                  return Icon(
+                                                    Icons.star,
+                                                    size: 18,
+                                                    color: bColor,
+                                                  );
                                                 },
-                                                onRatingUpdate: (rating){
-
-                                                },
+                                                onRatingUpdate: (rating) {},
                                               )
                                             ],
                                           ),
                                           height20,
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                            "\$${sneaker.price}",
-                                            style: appStyle(
-                                                26, bColor, FontWeight.w600),
+                                                "\$${sneaker.price}",
+                                                style: appStyle(26, bColor,
+                                                    FontWeight.w600),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "Colors",
+                                                    style: appStyle(18, bColor,
+                                                        FontWeight.w500),
+                                                  ),
+                                                  width4,
+                                                  CircleAvatar(
+                                                    radius: 7,
+                                                    backgroundColor: bColor,
+                                                  ),
+                                                  width4,
+                                                  CircleAvatar(
+                                                    radius: 7,
+                                                    backgroundColor: Colors.red,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
-                                          Row(
+                                          height20,
+                                          Column(
                                             children: [
-                                               Text(
-                                            "Colors",
-                                            style: appStyle(
-                                                18, bColor, FontWeight.w500),
-                                          ),
-                                          width4,
-                                          CircleAvatar(
-                                            radius: 7,
-                                            backgroundColor: bColor,
-                                          ),
-                                          width4,
-                                          CircleAvatar(
-                                            radius: 7,
-                                            backgroundColor: Colors.red,
-                                          ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "Select Sizes",
+                                                    style: appStyle(20, bColor,
+                                                        FontWeight.w600),
+                                                  ),
+                                                  width20,
+                                                  Text(
+                                                    "View size guide",
+                                                    style: appStyle(20, gColor,
+                                                        FontWeight.w600),
+                                                  ),
+                                                ],
+                                              ),
+                                              height12,
+                                              SizedBox(
+                                                height: 40,
+                                                child: ListView.builder(
+                                                    itemCount: productNotifier
+                                                        .shoesSize.length,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    padding: EdgeInsets.zero,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      final sizes =
+                                                          productNotifier
+                                                              .shoesSize[index];
+                                                      return Padding(
+                                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                        child: ChoiceChip(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          60),
+                                                              side: BorderSide(
+                                                                  color: bColor,
+                                                                  width: 1)),
+                                                          disabledColor: wColor,
+                                                          label: Text(
+                                                            sizes['size'],
+                                                            style: appStyle(
+                                                                18,
+                                                                sizes["isSelected"]
+                                                                    ? wColor
+                                                                    : bColor,
+                                                                FontWeight.w500),
+                                                          ),
+                                                          selected: sizes
+                                                              ['isSelected'],
+                                                          onSelected: (newState) {
+                                                            productNotifier
+                                                                .toggleCheck(
+                                                                    index);
+                                                          },
+                                                        ),
+                                                      );
+                                                    }),
+                                              ),
                                             ],
-                                          ),
-
-                                            ],
-                                          ),
+                                          )
                                         ],
                                       ),
                                     ),
