@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecom_app/controllers/product_provider.dart';
 import 'package:ecom_app/services/hrlper.dart';
 import 'package:ecom_app/utils/color.dart';
+import 'package:ecom_app/utils/constants.dart';
+import 'package:ecom_app/utils/sizdBox.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../models/snekers.dart';
@@ -65,9 +68,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
-                                  onTap: () {}, child: Icon(Icons.close)),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(
+                                    Icons.close,
+                                    color: bColor,
+                                  )),
                               GestureDetector(
-                                  onTap: () {}, child: Icon(Icons.more_vert))
+                                  onTap: () {},
+                                  child: Icon(
+                                    Icons.more_horiz,
+                                    color: bColor,
+                                  ))
                             ],
                           ),
                         ),
@@ -76,8 +89,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         floating: true,
                         backgroundColor: Colors.transparent,
                         expandedHeight: MediaQuery.of(context).size.height,
-                        flexibleSpace: Flexible(
-                            child: Stack(
+                        flexibleSpace: FlexibleSpaceBar(
+                            background: Stack(
                           children: [
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.5,
@@ -109,10 +122,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           top: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              0.9,
+                                              0.09,
                                           right: 20,
                                           child: Icon(
                                             Icons.favorite_outline,
+                                            color: gColor,
                                           ),
                                         ),
                                         Positioned(
@@ -147,7 +161,93 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       ],
                                     );
                                   }),
-                            )
+                            ),
+                            Positioned(
+                                bottom: 30,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30),
+                                    topRight: Radius.circular(30),
+                                  ),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.630,
+                                    width: MediaQuery.of(context).size.width,
+                                    color: wColor,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            sneaker.name,
+                                            style: appStyle(
+                                                26, bColor, FontWeight.bold),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                sneaker.category,
+                                                style: appStyle(18, gColor,
+                                                    FontWeight.w500),
+                                              ),
+                                              width20,
+                                              RatingBar.builder(
+                                                itemCount: 5,
+                                                itemSize: 22,
+                                                itemPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 1),
+                                                initialRating: 4,
+                                                minRating: 1,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                itemBuilder: (context, _) {
+                                                  return Icon(Icons.star,size: 18,color: bColor,);
+                                                },
+                                                onRatingUpdate: (rating){
+
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                          height20,
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                            "\$${sneaker.price}",
+                                            style: appStyle(
+                                                26, bColor, FontWeight.w600),
+                                          ),
+                                          Row(
+                                            children: [
+                                               Text(
+                                            "Colors",
+                                            style: appStyle(
+                                                18, bColor, FontWeight.w500),
+                                          ),
+                                          width4,
+                                          CircleAvatar(
+                                            radius: 7,
+                                            backgroundColor: bColor,
+                                          ),
+                                          width4,
+                                          CircleAvatar(
+                                            radius: 7,
+                                            backgroundColor: Colors.red,
+                                          ),
+                                            ],
+                                          ),
+
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ))
                           ],
                         )),
                       ),
