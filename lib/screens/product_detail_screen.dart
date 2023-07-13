@@ -215,7 +215,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                               )
                                             ],
                                           ),
-                                          height20,
+                                          height12,
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -246,7 +246,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                               ),
                                             ],
                                           ),
-                                          height20,
+                                          height12,
                                           Column(
                                             children: [
                                               Row(
@@ -290,6 +290,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                                   color: bColor,
                                                                   width: 1)),
                                                           disabledColor: wColor,
+                                                          selectedColor: bColor,
                                                           label: Text(
                                                             sizes['size'],
                                                             style: appStyle(
@@ -311,7 +312,38 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                     }),
                                               ),
                                             ],
-                                          )
+                                          ),
+                                          height12,
+                                          Divider(
+                                            indent: 10,
+                                            endIndent: 10,
+                                            color: bColor,
+                                          ),
+                                          height12,
+                                          SizedBox(
+                                            width: MediaQuery.of(context).size.width*0.8,
+                                            child:  Text(
+                                                    sneaker.title,
+                                                    style: appStyle(20, bColor,
+                                                        FontWeight.w700),
+                                                  ),
+                                          ),
+                                          height8,
+                                          Text(
+                                                    sneaker.description,
+                                                    style: appStyle(14, gColor,
+                                                        FontWeight.normal),
+                                                        textAlign: TextAlign.justify,
+                                                        maxLines: 4,
+                                                  ),
+                                                  height8,
+                                                Align(
+                                                  alignment: Alignment.bottomCenter,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(top:8.0),
+                                                    child: CheckoutButton(),
+                                                  ),
+                                                )
                                         ],
                                       ),
                                     ),
@@ -329,3 +361,4 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 }
+
