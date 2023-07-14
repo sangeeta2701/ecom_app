@@ -6,9 +6,11 @@ import 'package:ecom_app/utils/constants.dart';
 import 'package:ecom_app/utils/sizdBox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../models/snekers.dart';
+import '../widgets/checkoutButton.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen(
@@ -23,6 +25,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final PageController pageController = PageController();
+  final _cartBox = Hive.box("cart_box");
   late Future<Snekers> _sneaker;
 
   void getShoes() {
@@ -33,6 +36,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     } else {
       _sneaker = Helper().getKidsSnekerById(widget.id);
     }
+  }
+
+  Future<void> _createCart(Map<String, dynamic> newCart) async {
+    await _cartBox.add(newCart);
   }
 
   @override
@@ -279,7 +286,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                           productNotifier
                                                               .shoesSize[index];
                                                       return Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 8),
                                                         child: ChoiceChip(
                                                           shape: RoundedRectangleBorder(
                                                               borderRadius:
@@ -298,11 +308,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                                 sizes["isSelected"]
                                                                     ? wColor
                                                                     : bColor,
-                                                                FontWeight.w500),
+                                                                FontWeight
+                                                                    .w500),
                                                           ),
-                                                          selected: sizes
-                                                              ['isSelected'],
-                                                          onSelected: (newState) {
+                                                          selected: sizes[
+                                                              'isSelected'],
+                                                          onSelected:
+                                                              (newState) {
+                                                            // productNotifier
+                                                            //     .toggleCheck(
+                                                            //         index);
+                                                            if (productNotifier
+                                                                .sizes
+                                                                .contains(sizes[
+                                                                    "size"])) {
+                                                              productNotifier
+                                                                  .sizes
+                                                                  .remove(sizes[
+                                                                      "size"]);
+                                                            } else {
+                                                              productNotifier
+                                                                  .sizes
+                                                                  .add(sizes[
+                                                                      "size"]);
+                                                            }
+                                                            print(
+                                                                productNotifier
+                                                                    .sizes);
                                                             productNotifier
                                                                 .toggleCheck(
                                                                     index);
@@ -321,29 +353,51 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           ),
                                           height12,
                                           SizedBox(
-                                            width: MediaQuery.of(context).size.width*0.8,
-                                            child:  Text(
-                                                    sneaker.title,
-                                                    style: appStyle(20, bColor,
-                                                        FontWeight.w700),
-                                                  ),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.8,
+                                            child: Text(
+                                              sneaker.title,
+                                              style: appStyle(
+                                                  20, bColor, FontWeight.w700),
+                                            ),
                                           ),
                                           height8,
                                           Text(
-                                                    sneaker.description,
-                                                    style: appStyle(14, gColor,
-                                                        FontWeight.normal),
-                                                        textAlign: TextAlign.justify,
-                                                        maxLines: 4,
-                                                  ),
-                                                  height8,
-                                                Align(
-                                                  alignment: Alignment.bottomCenter,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.only(top:8.0),
-                                                    child: CheckoutButton(),
-                                                  ),
-                                                )
+                                            sneaker.description,
+                                            style: appStyle(
+                                                14, gColor, FontWeight.normal),
+                                            textAlign: TextAlign.justify,
+                                            maxLines: 4,
+                                          ),
+                                          height8,
+                                          Align(
+                                            alignment: Alignment.bottomCenter,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8.0),
+                                              child: CheckoutButton(
+                                                lable: "Add To Cart",
+                                                ontap: () async {
+                                                  _createCart({
+                                                    "id": sneaker.id,
+                                                    "name": sneaker.name,
+                                                    "category":
+                                                        sneaker.category,
+                                                    "sizes":
+                                                        productNotifier.sizes,
+                                                    "imageUrl":
+                                                        sneaker.imageUrl[0],
+                                                    "price": sneaker.price,
+                                                    "qty": 1
+                                                  });
+                                                  productNotifier.sizes.clear();
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -361,4 +415,3 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 }
-
