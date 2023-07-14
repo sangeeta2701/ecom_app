@@ -1,5 +1,5 @@
 import 'package:ecom_app/controllers/mainscreen_provider.dart';
-import 'package:ecom_app/screens/cart_screen.dart';
+// import 'package:ecom_app/screens/cart_screen.dart';
 import 'package:ecom_app/screens/home_screen.dart';
 import 'package:ecom_app/screens/profile_screen.dart';
 import 'package:ecom_app/screens/search_screen.dart';
@@ -7,6 +7,8 @@ import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/widgets/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/cart.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,11 +18,11 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<Widget> pageList = const [
+  List<Widget> pageList =  [
     HomeScreen(),
     SearchScreen(),
     HomeScreen(),
-    CartScreen(),
+    Cart(),
     ProfileScreen(),
   ];
   @override
