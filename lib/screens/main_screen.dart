@@ -8,7 +8,7 @@ import 'package:ecom_app/widgets/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/cart.dart';
+import 'cart_Screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     SearchScreen(),
     HomeScreen(),
-    Cart(),
+    CartScreen(),
     ProfileScreen(),
   ];
   @override
