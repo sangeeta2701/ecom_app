@@ -86,7 +86,7 @@ class CartScreen extends StatelessWidget {
                                     MediaQuery.of(context).size.height * 0.11,
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
+                                    color: wColor,
                                     boxShadow: [
                                       BoxShadow(
                                         color: gColor.withOpacity(0.5),
@@ -96,57 +96,95 @@ class CartScreen extends StatelessWidget {
                                       ),
                                     ]),
                                 child: Row(
-                                    // mainAxisAlignment:
-                                        // MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: CachedNetworkImage(
-                                          imageUrl: data["imageUrl"],
-                                          width: 70,
-                                          height: 70,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 12, left: 10),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              data["name"],
-                                              style: appStyle(
-                                                  16, bColor, FontWeight.bold),
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(12.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl: data["imageUrl"],
+                                              width: 70,
+                                              height: 70,
+                                              fit: BoxFit.fill,
                                             ),
-                                            height4,
-                                            Text(
-                                              data["category"],
-                                              style: appStyle(
-                                                  14, gColor, FontWeight.w500),
-                                            ),
-                                             Row(
-                                               children: [
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 12, left: 10),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  data["name"],
+                                                  style: appStyle(
+                                                      16, bColor, FontWeight.bold),
+                                                ),
+                                                height4,
+                                                Text(
+                                                  data["category"],
+                                                  style: appStyle(
+                                                      14, gColor, FontWeight.w500),
+                                                ),
+                                                 Row(
+                                                   children: [
+                                                     Text(
+                                                      data["price"],
+                                                      style: appStyle(
+                                                          16, bColor, FontWeight.w600),
+                                                ),
+                                                width12,
                                                  Text(
-                                                  data["price"],
-                                                  style: appStyle(
-                                                      16, bColor, FontWeight.w600),
+                                                      "Size: ${data["sizes"]}",
+                                                      style: appStyle(
+                                                          16, gColor, FontWeight.w500),
+                                                ),
+                                                   ],
+                                                 ),
+                                              ],
                                             ),
-                                            width12,
-                                             Text(
-                                                  "Size: ${data["sizes"]}",
-                                                  style: appStyle(
-                                                      16, bColor, FontWeight.w600),
-                                            ),
-                                               ],
-                                             ),
-                                          ],
-                                        ),
-                                      )
-                                    ]),
+                                          ),
+                                          
+                                        ]),
+                                        Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: wColor,
+                                                    borderRadius: BorderRadius.circular(16),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: (){
+                                                          //decrement
+                                                        },
+                                                        child: Icon(Icons.indeterminate_check_box,size: 20,color: gColor,),
+
+                                                      ),
+                                                      Text(data["qty"].toString(),style: appStyle(
+                                                      12, bColor, FontWeight.bold),),
+                                  InkWell(
+                                                        onTap: (){
+                                                          //increment
+                                                        },
+                                                        child: Icon(Icons.add_box,size: 20,color: bColor,),
+
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
