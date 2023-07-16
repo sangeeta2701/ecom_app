@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
                     ontap: () {
                       mainScreenNotifier.pageIndex = 2;
                     },
-                    icon:mainScreenNotifier.pageIndex == 2? Icons.add:Icons.add),
+                    icon:mainScreenNotifier.pageIndex == 2? Icons.favorite:Icons.favorite_border),
                 bottomNavWidget(
                     ontap: () {
                       mainScreenNotifier.pageIndex = 3;
