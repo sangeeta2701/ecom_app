@@ -1,9 +1,17 @@
+import 'package:ecom_app/models/fcontants.dart';
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ProductCard extends StatefulWidget {
-  const ProductCard({super.key,required this.price,required this.category,required this.id,required this.image,required this.name});
+  const ProductCard(
+      {super.key,
+      required this.price,
+      required this.category,
+      required this.id,
+      required this.image,
+      required this.name});
   final String price;
   final String category;
   final String id;
@@ -16,6 +24,21 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   bool selected = true;
+  final _favBox = Hive.box("fav_box");
+
+  Future<void> _createFav(Map<String, dynamic> addFav) async {
+    await _favBox.add(addFav);
+  }
+
+  getFavorites() {
+    final favData = _favBox.keys.map((key) {
+      final item = _favBox.get(key);
+      return {"key": key, "id": "id"};
+    }).toList();
+
+    favor = favData.toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,7 +63,8 @@ class _ProductCardState extends State<ProductCard> {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.23,
                     decoration: BoxDecoration(
-                        image: DecorationImage(image: NetworkImage(widget.image))),
+                        image:
+                            DecorationImage(image: NetworkImage(widget.image))),
                   ),
                   Positioned(
                       right: 10,
@@ -67,20 +91,35 @@ class _ProductCardState extends State<ProductCard> {
                   ],
                 ),
               ),
-              Padding(padding: EdgeInsets.only(left: 8,right: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(widget.price,style: appStyle(26, bColor, FontWeight.w600),),
-                  Row(children: [
-                    Text("Colors",style: appStyle(18, gColor, FontWeight.w500),),
-                    SizedBox(width: 5,),
-                    ChoiceChip(label: Text(""), selected: selected,
-                    visualDensity: VisualDensity.compact,
-                    selectedColor: bColor,),
-                  ],)
-                ],
-              ),)
+              Padding(
+                padding: EdgeInsets.only(left: 8, right: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.price,
+                      style: appStyle(26, bColor, FontWeight.w600),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Colors",
+                          style: appStyle(18, gColor, FontWeight.w500),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        ChoiceChip(
+                          label: Text(""),
+                          selected: selected,
+                          visualDensity: VisualDensity.compact,
+                          selectedColor: bColor,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
