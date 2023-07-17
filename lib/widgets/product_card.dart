@@ -1,4 +1,5 @@
 import 'package:ecom_app/models/fcontants.dart';
+import 'package:ecom_app/screens/favourite_screen.dart';
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class _ProductCardState extends State<ProductCard> {
 
   Future<void> _createFav(Map<String, dynamic> addFav) async {
     await _favBox.add(addFav);
+    getFavorites();
   }
 
   getFavorites() {
@@ -35,8 +37,11 @@ class _ProductCardState extends State<ProductCard> {
       final item = _favBox.get(key);
       return {"key": key, "id": "id"};
     }).toList();
-
     favor = favData.toList();
+    ids = favor.map((item) => item["id"]).toList();
+    setState(() {
+      
+    });
   }
 
   @override
@@ -69,9 +74,27 @@ class _ProductCardState extends State<ProductCard> {
                   Positioned(
                       right: 10,
                       top: 10,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Icon(Icons.favorite_outline),
+                      child: InkWell(
+                        // behavior: HitTestBehavior.translucent,
+                        onTap: () async {
+                          if (ids.contains(widget.id)) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FavouriteScreen(),
+                              ),
+                            );
+                          } else {
+                            _createFav({
+                              "id": widget.id,
+                              "name": widget.name,
+                              "category": widget.category,
+                              "price": widget.price,
+                              "imageUrl": widget.image
+                            });
+                          }
+                        },
+                        child: ids.contains(widget.id)? Icon(Icons.favorite):Icon(Icons.favorite_outline),
                       ))
                 ],
               ),
