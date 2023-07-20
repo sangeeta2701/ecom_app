@@ -35,17 +35,16 @@ class _ProductCardState extends State<ProductCard> {
   getFavorites() {
     final favData = _favBox.keys.map((key) {
       final item = _favBox.get(key);
-      return {"key": key, "id": "id"};
+      return {"key": key, "id": item["id"]};
     }).toList();
     favor = favData.toList();
     ids = favor.map((item) => item["id"]).toList();
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    bool selected = true;
     return Padding(
       padding: EdgeInsets.fromLTRB(8, 0, 20, 0),
       child: ClipRRect(
@@ -94,7 +93,9 @@ class _ProductCardState extends State<ProductCard> {
                             });
                           }
                         },
-                        child: ids.contains(widget.id)? Icon(Icons.favorite):Icon(Icons.favorite_outline),
+                        child: ids.contains(widget.id)
+                            ? Icon(Icons.favorite)
+                            : Icon(Icons.favorite_outline),
                       ))
                 ],
               ),

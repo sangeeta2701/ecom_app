@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecom_app/controllers/product_provider.dart';
+import 'package:ecom_app/screens/favourite_screen.dart';
 import 'package:ecom_app/services/hrlper.dart';
 import 'package:ecom_app/utils/color.dart';
 import 'package:ecom_app/utils/constants.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
+import '../models/fcontants.dart';
 import '../models/snekers.dart';
 import '../widgets/checkoutButton.dart';
 
@@ -26,6 +28,23 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final PageController pageController = PageController();
   final _cartBox = Hive.box("cart_box");
+  final _favBox = Hive.box("_favBox");
+
+  Future<void> _createFav(Map<String, dynamic> addFav) async {
+    await _favBox.add(addFav);
+    getFavorites();
+  }
+
+  getFavorites() {
+    final favData = _favBox.keys.map((key) {
+      final item = _favBox.get(key);
+      return {"key": key, "id": item["id"]};
+    }).toList();
+    favor = favData.toList();
+    ids = favor.map((item) => item["id"]).toList();
+    setState(() {});
+  }
+
   late Future<Snekers> _sneaker;
 
   void getShoes() {
@@ -132,10 +151,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                   .height *
                                               0.09,
                                           right: 20,
-                                          child: Icon(
-                                            Icons.favorite_outline,
-                                            color: gColor,
-                                          ),
+                                          child: Consumer<FavoritesNotifier>(
+                                              builder: (context,
+                                                  favoritesNotifier, child) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                if (ids.contains(widget.id)) {
+                                                  Navigator.push(
+                                                      context, MaterialPageRoute(builder: (context)=>FavouriteScreen()));
+                                                } else {}
+                                              },
+                                              child: ids.contains(sneaker.id)
+                                                  ? Icon(Icons.favorite)
+                                                  : Icon(Icons
+                                                      .favorite_border_outlined),
+                                            );
+                                          }),
+                                          // child: Icon(
+                                          //   Icons.favorite_outline,
+                                          //   color: gColor,
+                                          // ),
                                         ),
                                         Positioned(
                                           bottom: 0,
